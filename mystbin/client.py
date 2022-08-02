@@ -152,10 +152,11 @@ class HTTPClient:
 
         paste_id = paste_id_match.group("ID")
 
-        if not self._are_we_async:
-            return self._perform_sync_get(paste_id)
-
-        return self._perform_async_get(paste_id)
+        return (
+            self._perform_async_get(paste_id)
+            if self._are_we_async
+            else self._perform_sync_get(paste_id)
+        )
 
     def _perform_sync_get(self, paste_id: str) -> PasteData:
         """ Sync get request. """

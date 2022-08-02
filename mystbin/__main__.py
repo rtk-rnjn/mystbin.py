@@ -38,13 +38,13 @@ import mystbin
 
 
 def show_version():
-    entries = []
-
-    entries.append(
+    entries = [
         "- Python v{0.major}.{0.minor}.{0.micro}-{0.releaselevel}".format(
             sys.version_info
         )
-    )
+    ]
+
+
     version_info = mystbin.version_info
     entries.append(
         "- mystbin.py v{0.major}.{0.minor}.{0.micro}-{0.releaselevel}".format(
@@ -52,8 +52,7 @@ def show_version():
         )
     )
     if version_info.releaselevel != "final":
-        pkg = pkg_resources.get_distribution("mystbin.py")
-        if pkg:
+        if pkg := pkg_resources.get_distribution("mystbin.py"):
             entries.append("    - mystbin.py pkg_resources: v{0}".format(pkg.version))
 
     entries.append("- aiohttp v{0.__version__}".format(aiohttp))
